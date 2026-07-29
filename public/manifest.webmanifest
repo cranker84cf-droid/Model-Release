@@ -1,0 +1,27 @@
+﻿{
+  "name": "Chris Franz Design – Model-Release",
+  "short_name": "Model-Release",
+  "description": "Mobile Model-Release-Vereinbarung von Chris Franz Design",
+  "id": ".",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fffefa",
+  "theme_color": "#18221e",
+  "lang": "de-DE",
+  "icons": [
+    {
+      "src": "chris-franz-design-logo.png",
+      "sizes": "1536x1536",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "chris-franz-design-logo.png",
+      "sizes": "1536x1536",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
