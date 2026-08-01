@@ -102,6 +102,7 @@ export default function Home() {
   const [consent, setConsent] = useState(false);
   const [photographerSignature, setPhotographerSignature] = useState("");
   const [status, setStatus] = useState("");
+  const tabsRef = useRef<HTMLDivElement>(null);
   const today = new Date().toISOString().slice(0, 10);
 
   const resolvedModel = (index: number) => {
@@ -114,6 +115,13 @@ export default function Home() {
     setModels((current) => current.map((model, modelIndex) => modelIndex === index ? { ...model, ...patch } : model));
   };
 
+  const selectTab = (index: number) => {
+    const next = Math.max(0, Math.min(index, models.length - 1));
+    setActiveIndex(next);
+    requestAnimationFrame(() => {
+      tabsRef.current?.querySelector<HTMLElement>(`[data-tab-index="${next}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    });
+  };
   const changeCount = (count: number) => {
     setModels((current) => count > current.length
       ? [...current, ...Array.from({ length: count - current.length }, (_, index) => newModel(current.length + index))]
@@ -229,7 +237,7 @@ export default function Home() {
       <section className="participant-control"><div><span className="section-kicker">Shooting vorbereiten</span><h2>Wie viele Personen nehmen teil?</h2><p>Für jede Person werden eigene Modeldaten und die altersabhängigen Unterschriften erfasst.</p></div><label>Personenanzahl<select value={models.length} onChange={(event) => changeCount(Number(event.target.value))}>{Array.from({ length: 10 }, (_, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)}</select></label></section>
 
       <fieldset><legend>Daten des Models</legend>
-        {models.length > 1 && <div className="model-tabs" role="tablist" aria-label="Models">{models.map((model, index) => <button key={model.id} type="button" role="tab" aria-selected={activeIndex === index} className={activeIndex === index ? "active" : ""} onClick={() => setActiveIndex(index)}><span>{firstName(model.name) || `Person ${index + 1}`}</span>{(() => { const m = resolvedModel(index); const age = ageOf(m.birth); const complete = Boolean(m.name && m.street && m.city && emailPattern.test(m.email) && age !== null && age >= 0 && (age < 14 ? m.guardianName && m.guardianEmail && m.guardianSignature : age < 18 ? m.guardianName && m.guardianEmail && m.guardianSignature && m.modelSignature : m.modelSignature)); return <i>{complete ? "✓" : index + 1}</i>; })()}</button>)}</div>}{models.length > 3 && <span className="tabs-hint">← Reiter seitlich wischen →</span>}
+        {models.length > 1 && <><div className="tab-navigator"><button type="button" className="tab-arrow" onClick={() => selectTab(activeIndex - 1)} disabled={activeIndex === 0} aria-label="Vorheriges Model">‹</button><div ref={tabsRef} className="model-tabs" role="tablist" aria-label="Models">{models.map((model, index) => <button key={model.id} data-tab-index={index} type="button" role="tab" aria-selected={activeIndex === index} className={activeIndex === index ? "active" : ""} onClick={() => selectTab(index)}><span>{firstName(model.name) || `Person ${index + 1}`}</span>{(() => { const m = resolvedModel(index); const age = ageOf(m.birth); const complete = Boolean(m.name && m.street && m.city && emailPattern.test(m.email) && age !== null && age >= 0 && (age < 14 ? m.guardianName && m.guardianEmail && m.guardianSignature : age < 18 ? m.guardianName && m.guardianEmail && m.guardianSignature && m.modelSignature : m.modelSignature)); return <i>{complete ? "✓" : index + 1}</i>; })()}</button>)}</div><button type="button" className="tab-arrow" onClick={() => selectTab(activeIndex + 1)} disabled={activeIndex === models.length - 1} aria-label="Nächstes Model">›</button></div>{models.length > 3 && <span className="tabs-hint">Mit den Pfeilen wechseln oder Reiter seitlich wischen</span>}</>}
         <div className="model-panel" role="tabpanel">
           <div className="grid">
             <label className="wide">Vor- und Nachname *<input value={active.name} onChange={(event) => updateModel(activeIndex, { name: event.target.value })} autoComplete="name" required /></label>
