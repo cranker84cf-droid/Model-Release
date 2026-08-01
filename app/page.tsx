@@ -19,7 +19,7 @@ type ModelData = {
   guardianSignature: string;
 };
 
-const consentText = "Ich erkläre mich damit einverstanden, dass die von Chris Franz Design aufgenommenen Fotos für Portfolio, Website, Social Media (z. B. Instagram/Facebook), Ausstellungen und Eigenwerbung verwendet werden dürfen. Der Verkauf und die kommerzielle Weitergabe der Fotos an Dritte sind ausgeschlossen. Diese Einwilligung kann für zukünftige Nutzungen widerrufen werden. Bereits veröffentlichte Medien bleiben hiervon unberührt, soweit gesetzlich zulässig.";
+const consentText = "Ich erkläre mich damit einverstanden, dass die von Chris Franz Design aufgenommenen Fotos für Portfolio, Website, Social Media (z. B. Instagram/Facebook), Ausstellungen und Eigenwerbung verwendet werden dürfen. Der Verkauf und die kommerzielle Weitergabe der Fotos an Dritte sind ausgeschlossen. Alle Fotos werden ausschließlich in digitaler Form an das jeweilige Model übermittelt. Diese Einwilligung kann für zukünftige Nutzungen widerrufen werden. Bereits veröffentlichte Medien bleiben hiervon unberührt, soweit gesetzlich zulässig.";
 const imageTerms = "Das Model erhält alle bearbeiteten Bilder mit Wasserzeichen. Zwei bearbeitete Fotos sind kostenlos; bei diesen entfernt Chris Franz Design das Wasserzeichen. Weitere Fotos können erworben werden. Die Preise sind Verhandlungsbasis.";
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
