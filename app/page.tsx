@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRef, useState } from "react";
 import { jsPDF } from "jspdf";
@@ -194,7 +194,7 @@ export default function Home() {
       y += model.instagram ? 14 : 10;
       if (age < 18) {
         pdf.setFont("helvetica", "bold"); pdf.text("Erziehungsberechtigte Person:", margin, y);
-        pdf.setFont("helvetica", "normal"); pdf.text(`${model.guardianName} · ${model.guardianEmail}`, margin + 43, y); y += 8;
+        pdf.setFont("helvetica", "normal"); pdf.text(`${model.guardianName} · ${model.guardianEmail}`, margin + 49, y); y += 8;
       }
       signatures.forEach((signature, signatureIndex) => {
         const x = margin + signatureIndex * 88;
@@ -229,7 +229,7 @@ export default function Home() {
       <section className="participant-control"><div><span className="section-kicker">Shooting vorbereiten</span><h2>Wie viele Personen nehmen teil?</h2><p>Für jede Person werden eigene Modeldaten und die altersabhängigen Unterschriften erfasst.</p></div><label>Personenanzahl<select value={models.length} onChange={(event) => changeCount(Number(event.target.value))}>{Array.from({ length: 10 }, (_, index) => <option key={index + 1} value={index + 1}>{index + 1}</option>)}</select></label></section>
 
       <fieldset><legend>Daten des Models</legend>
-        {models.length > 1 && <div className="model-tabs" role="tablist" aria-label="Models">{models.map((model, index) => <button key={model.id} type="button" role="tab" aria-selected={activeIndex === index} className={activeIndex === index ? "active" : ""} onClick={() => setActiveIndex(index)}><span>{firstName(model.name) || `Person ${index + 1}`}</span>{(() => { const m = resolvedModel(index); const age = ageOf(m.birth); const complete = Boolean(m.name && m.street && m.city && emailPattern.test(m.email) && age !== null && age >= 0 && (age < 14 ? m.guardianName && m.guardianEmail && m.guardianSignature : age < 18 ? m.guardianName && m.guardianEmail && m.guardianSignature && m.modelSignature : m.modelSignature)); return <i>{complete ? "✓" : index + 1}</i>; })()}</button>)}</div>}
+        {models.length > 1 && <div className="model-tabs" role="tablist" aria-label="Models">{models.map((model, index) => <button key={model.id} type="button" role="tab" aria-selected={activeIndex === index} className={activeIndex === index ? "active" : ""} onClick={() => setActiveIndex(index)}><span>{firstName(model.name) || `Person ${index + 1}`}</span>{(() => { const m = resolvedModel(index); const age = ageOf(m.birth); const complete = Boolean(m.name && m.street && m.city && emailPattern.test(m.email) && age !== null && age >= 0 && (age < 14 ? m.guardianName && m.guardianEmail && m.guardianSignature : age < 18 ? m.guardianName && m.guardianEmail && m.guardianSignature && m.modelSignature : m.modelSignature)); return <i>{complete ? "✓" : index + 1}</i>; })()}</button>)}</div>}{models.length > 3 && <span className="tabs-hint">← Reiter seitlich wischen →</span>}
         <div className="model-panel" role="tabpanel">
           <div className="grid">
             <label className="wide">Vor- und Nachname *<input value={active.name} onChange={(event) => updateModel(activeIndex, { name: event.target.value })} autoComplete="name" required /></label>
