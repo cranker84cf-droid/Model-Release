@@ -20,7 +20,7 @@ type ModelData = {
 };
 
 const consentText = "Ich erkläre mich damit einverstanden, dass die von Chris Franz Design aufgenommenen Fotos für Portfolio, Website, Social Media (z. B. Instagram/Facebook), Ausstellungen und Eigenwerbung verwendet werden dürfen. Der Verkauf und die kommerzielle Weitergabe der Fotos an Dritte sind ausgeschlossen. Alle Fotos werden ausschließlich in digitaler Form an das jeweilige Model übermittelt. Diese Einwilligung kann für zukünftige Nutzungen widerrufen werden. Bereits veröffentlichte Medien bleiben hiervon unberührt, soweit gesetzlich zulässig.";
-const imageTerms = "Das Model erhält alle bearbeiteten Bilder mit Wasserzeichen. Zwei bearbeitete Fotos sind kostenlos; bei diesen entfernt Chris Franz Design das Wasserzeichen. Weitere Fotos können erworben werden. Die Preise sind Verhandlungsbasis.";
+const imageTerms = "Das Shooting erfolgt auf TFP-Basis. Eine Vergütung in Geld erfolgt nicht. Als Gegenleistung für die Mitwirkung erhält jedes Model mindestens fünf von Chris Franz Design ausgewählte und vollständig bearbeitete Fotos ohne Wasserzeichen. Die Übermittlung erfolgt ausschließlich digital. Nach individueller Absprache können dem Model weitere vollständig bearbeitete Fotos ohne Wasserzeichen unentgeltlich oder zu gesondert vereinbarten Bedingungen zur Verfügung gestellt werden. Ein Anspruch auf die Herausgabe weiterer Bilder besteht nicht. Auswahl und Bearbeitungsstil der Bilder liegen bei Chris Franz Design. Unbearbeitete Aufnahmen und RAW-Dateien werden nicht herausgegeben. Das Model erhält an den übermittelten Bildern ein einfaches, nicht übertragbares und nicht kommerzielles Nutzungsrecht für private Zwecke, das eigene Portfolio und die eigenen Social-Media-Profile. Bei einer Veröffentlichung ist Chris Franz Design als Fotograf zu nennen oder zu verlinken. Weitere gemeinsame Shootings oder Projekte können nach gegenseitiger Absprache vereinbart werden; eine Verpflichtung hierzu besteht für keine der Parteien.";
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function newModel(index: number): ModelData {
@@ -180,7 +180,7 @@ export default function Home() {
     pdf.setFont("helvetica", "normal"); pdf.text(["Chris Franz Design · Christopher Franz", "Schlesische Straße 15 · 31008 Elze · design@chris-franz.de"], margin, 57);
     y = 70;
 
-    pdf.setFont("helvetica", "bold"); pdf.text("EINWILLIGUNG UND BILDAUSWAHL", margin, y); y += 6;
+    pdf.setFont("helvetica", "bold"); pdf.text("EINWILLIGUNG UND TFP-VEREINBARUNG", margin, y); y += 6;
     pdf.setFont("helvetica", "normal"); pdf.setFontSize(8.5);
     const consentLines = pdf.splitTextToSize(consentText.replace("Chris Franz Design", "CHRIS FRANZ DESIGN"), contentWidth);
     pdf.text(consentLines, margin, y, { lineHeightFactor: 1.3 }); y += consentLines.length * 3.8 + 3;
@@ -254,7 +254,7 @@ export default function Home() {
         </div>
       </fieldset>
 
-      <fieldset><legend>Einwilligung und Bildauswahl</legend><p className="copy">{consentText.split("Chris Franz Design")[0]}<em className="brand-name">Chris Franz Design</em>{consentText.split("Chris Franz Design")[1]}</p><p className="terms-copy">{imageTerms}</p><label className="check"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>Alle aufgeführten Models beziehungsweise ihre erziehungsberechtigten Personen haben die Vereinbarung gelesen und stimmen ihr zu. *</span></label></fieldset>
+      <fieldset><legend>Einwilligung und TFP-Vereinbarung</legend><p className="copy">{consentText.split("Chris Franz Design")[0]}<em className="brand-name">Chris Franz Design</em>{consentText.split("Chris Franz Design")[1]}</p><p className="terms-copy">{imageTerms}</p><label className="check"><input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} required /><span>Alle aufgeführten Models beziehungsweise ihre erziehungsberechtigten Personen haben die Vereinbarung gelesen und stimmen ihr zu. *</span></label></fieldset>
 
       <fieldset><legend>Unterschrift Fotograf</legend><p className="field-intro">Diese Unterschrift gilt einmalig für alle oben aufgeführten Models.</p><div className="photographer-signature"><Signature label="Christopher Franz · Chris Franz Design" value={photographerSignature} onChange={setPhotographerSignature} /></div></fieldset>
       <div className="actions">{!ready && <div className="missing" role="status"><strong>Noch nicht vollständig</strong><span>Bitte ergänzen: {missing.join(", ")}.</span></div>}<button className="confirm" disabled={!ready}>Vereinbarung bestätigen & PDF speichern</button>{status && <p role="status" className="status">{status}</p>}</div>
